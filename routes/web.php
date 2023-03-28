@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [IndexController::class, 'home']);
 Route::get('/jobs', [IndexController::class, 'jobs']);
+
+Route::view('login', 'pages.login');
+Route::view('signup', 'pages.signup');
+Route::post('login', [AuthController::class,'login']);
+Route::post('signup', [AuthController::class,'signup']);
