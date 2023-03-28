@@ -10,7 +10,7 @@ text-lg text-gray-700
 bg-white
 ">
     <div>
-        <a href="#" class="text-xl font-mono text-purple-500">
+        <a href="/" class="text-xl font-mono text-purple-500">
             Job borad
         </a>
     </div>
@@ -28,27 +28,49 @@ bg-white
   md:items-center
   md:justify-between 
   md:py-4
-  md:gap-4
-  
+  md:gap-5
   ">
+
             <li class="py-2 md:p-0">
-                <a class="  hover:text-purple-400" href="/">Home</a>
+                <a class="  hover:text-purple-400 
+                {{ !request()->is('/') ?"": 'border-b-2 border-purple-500 font-semibold text-purple-500' }}
+                "
+                    href="/">Home</a>
             </li>
 
             <li class="py-2 md:p-0">
-                <a class="  hover:text-purple-400" href="/jobs">Jobs</a>
+                <a class="  hover:text-purple-400 
+                    {{ !request()->is('jobs*') ? "": ' border-b-2 border-purple-500 font-semibold text-purple-500' }}
+                " href="/jobs">Jobs</a>
             </li>
 
-            <li class="py-2 md:p-0">
-                <a class="  hover:text-purple-400 text-purple-500" href="signup">
-                    Sign Up
-                </a>
-            </li>
-            <li class="py-2 md:p-0">
-                <a class="px-2 py-1  rounded-md text-white hover:bg-purple-400 bg-purple-500" href="login">
-                    Log in
-                </a>
-            </li>
+            @if (auth()->check())
+                <li class="py-2 md:p-0">
+                    <a class="  hover:text-purple-400 
+                        {{ !request()->is('employer*') ?"": 'border-b-2 border-purple-500 font-semibold text-purple-500' }}
+                    " href="/employer">employer</a>
+                </li>
+                <li class="py-2 md:p-0">
+                    <form action="/logout" method="post">
+                        <button class="px-2 py-1  rounded-md text-white hover:bg-purple-400 bg-purple-500">
+                            Log out
+                        </button>
+                    </form>
+                </li>
+            @else
+                <li class="py-2 md:p-0">
+                    <a class="  hover:text-purple-400 text-purple-500 
+                        {{ !request()->is('signup*') ?"": 'border-b-2 border-purple-500 font-semibold text-purple-500' }}
+                    " href="signup">
+                        Sign Up
+                    </a>
+                </li>
+                <li class="py-2 md:p-0">
+                    <a class="px-2 py-1  rounded-md text-white hover:bg-purple-400 bg-purple-500" href="login">
+                        Log in
+                    </a>
+                </li>
+            @endif
         </ul>
     </div>
 </nav>
