@@ -37,10 +37,19 @@ class IndexController extends Controller
         }
         if ($request->filled("search_query")) {
             $search_query = strtoupper($request->get("search_query"));
-            $jobsQuery->where(DB::raw(("UPPER(jobs.title)")), 'like',"%$search_query%");
+            $jobsQuery->where(DB::raw(("UPPER(jobs.title)")), 'like', "%$search_query%");
         }
         $jobs = $jobsQuery->limit(10)->get();
 
         return view('pages.jobs', compact('jobs', 'categories', 'locations', 'companies'));
+    }
+
+    public function viewJob(Job $job)
+    {
+        return view('pages.view-job', compact('job'));
+    }
+
+    public function applynow(Job $job){
+        return view('pages.apply-now',compact('job'));
     }
 }

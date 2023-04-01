@@ -76,13 +76,15 @@
                         <div class="text-sm font-mono font-bold text-purple-600 flex items-start py-2">
                             {{ $job->title }}
                         </div>
+                        
                     </div>
-
+                    
+                    <div class="text-sm my-3 text-gray-500">{{ $job->created_at->diffForHumans() }}</div>
                     <div class="text-sm">
                         {{ strlen($job->description) > 100 ? substr($job->description, 0, 100) . '...' : $job->description }}
                     </div>
                     <div class="text-end">
-                        <a href="#" class="text text-purple-500 ">more</a>
+                        <a href="/jobs/{{ $job->id }}" class="text text-purple-500 ">more</a>
                     </div>
                 </div>
             @endforeach

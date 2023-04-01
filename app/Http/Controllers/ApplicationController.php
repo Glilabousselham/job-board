@@ -3,63 +3,47 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\Job;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ApplicationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct()
     {
-        //
+        $this->middleware('mauth');
+    }
+    public function applynow(Job $job, Request $request)
+    {
+        $request->validate([
+            'resume' => 'required|file|mimes:doc,docx,pdf|max:10000',
+            'cover_letter' => 'required|string|min:10|max:400'
+        ]);
+
+        $path = $request->file('resume')->store('public/resumes');
+
+        if (!$path) {
+            throw new \Exception("file not uploaded");
+        }
+
+        $resume_url = str_replace("public", '/storage', $path);
+
+        $request->user()->applications()->create([
+            'resume_url' => $resume_url,
+            'cover_letter' => $request->cover_letter,
+            'job_id' => $job->id
+        ]);
+
+        return response()->redirectTo('/alerts/applysuccess');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function applySuccessAlert()
     {
-        //
+        return view('pages.apply-success');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function myapplications()
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Application $application)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Application $application)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Application $application)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Application $application)
-    {
-        //
+        $applications = request()->user()->applications()->latest()->get();
+        return view('pages.myapplications', compact('applications'));
     }
 }

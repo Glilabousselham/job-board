@@ -60,7 +60,7 @@
             ">
 
         {{-- filter side  --}}
-        <div class="col-span-1">
+        <div class="col-span-1 hidden md:block">
             <h3 class="text-lg mb-3 ">Categories</h3>
             <ul class="flex flex-col text-sm gap-[1px]">
                 @foreach ($categories as $category)
@@ -84,10 +84,13 @@
                         <div class="flex flex-nowrap gap-2">
                             <img src="{{ $job->company->logo_url }}" class="bg-purple-400 object-cover rounded-full"
                                 style="width: 50px;height: 50px" alt="">
-                            <div class="text-sm font-mono font-bold text-purple-600 flex items-start py-2">
-                                {{ $job->title }}
-                            </div>
+                            <a href="/jobs/{{ $job->id }}">
+                                <div class="text-sm font-mono font-bold text-purple-600 flex items-start py-2">
+                                    {{ $job->title }}
+                                </div>
+                            </a>
                         </div>
+                        <div class="text-sm my-3 text-gray-500">{{ $job->created_at->diffForHumans() }}</div>
 
                         <div class="text-sm">
                             {{ strlen($job->description) > 200 ? substr($job->description, 0, 200) . '...' : $job->description }}

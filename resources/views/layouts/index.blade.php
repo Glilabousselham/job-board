@@ -14,7 +14,7 @@
 
     <div class="bg-slate-100 w-full min-h-screen">
         <div class="w-full max-w-[1600px] xl:px-1 mx-auto flex flex-col gap-1">
-            @include('components.nav')
+            <x-nav />
             @yield('content')
             <footer>
                 <div class="bg-purple-900 py-4 px-3">

@@ -16,4 +16,8 @@ class Application extends Model
         "cover_letter",
         "status",
     ];
+
+    public function job(){
+        return $this->belongsTo(Job::class);
+    }
 }

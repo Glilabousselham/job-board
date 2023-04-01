@@ -1,3 +1,8 @@
+<style>
+    .more:hover>ul, .more>ul:hover {
+        display: flex;
+    }
+</style>
 <nav class="
 flex flex-wrap
 items-center
@@ -33,22 +38,35 @@ bg-white
 
             <li class="py-2 md:p-0">
                 <a class="  hover:text-purple-400 
-                {{ !request()->is('/') ?"": 'border-b-2 border-purple-500 font-semibold text-purple-500' }}
+                {{ !request()->is('/') ? '' : 'border-b-2 border-purple-500 font-semibold text-purple-500' }}
                 "
                     href="/">Home</a>
             </li>
 
             <li class="py-2 md:p-0">
                 <a class="  hover:text-purple-400 
-                    {{ !request()->is('jobs*') ? "": ' border-b-2 border-purple-500 font-semibold text-purple-500' }}
-                " href="/jobs">Jobs</a>
+                    {{ !request()->is('jobs*') ? '' : ' border-b-2 border-purple-500 font-semibold text-purple-500' }}
+                "
+                    href="/jobs">Jobs</a>
             </li>
 
             @if (auth()->check())
                 <li class="py-2 md:p-0">
                     <a class="  hover:text-purple-400 
-                        {{ !request()->is('employer*') ?"": 'border-b-2 border-purple-500 font-semibold text-purple-500' }}
-                    " href="/employer">employer</a>
+                        {{ !request()->is('employer*') ? '' : 'border-b-2 border-purple-500 font-semibold text-purple-500' }}
+                    "
+                        href="/employer">employer</a>
+                </li>
+                <li class="py-2 md:p-0">
+                    <div class="more">
+                        <span>more</span>
+                        <ul class="w-fit p-1 flex-col bg-white shadow absolute hidden z-10">
+                            <li class="flex">
+                                <a class="p-2 py-1 hover:bg-purple-100" href="/myapplications">My applications</a>
+                            </li>
+                           
+                        </ul>
+                    </div>
                 </li>
                 <li class="py-2 md:p-0">
                     <form action="/logout" method="post">
@@ -60,13 +78,14 @@ bg-white
             @else
                 <li class="py-2 md:p-0">
                     <a class="  hover:text-purple-400 text-purple-500 
-                        {{ !request()->is('signup*') ?"": 'border-b-2 border-purple-500 font-semibold text-purple-500' }}
-                    " href="signup">
+                        {{ !request()->is('signup*') ? '' : 'border-b-2 border-purple-500 font-semibold text-purple-500' }}
+                    "
+                        href="/signup">
                         Sign Up
                     </a>
                 </li>
                 <li class="py-2 md:p-0">
-                    <a class="px-2 py-1  rounded-md text-white hover:bg-purple-400 bg-purple-500" href="login">
+                    <a class="px-2 py-1  rounded-md text-white hover:bg-purple-400 bg-purple-500" href="/login">
                         Log in
                     </a>
                 </li>
