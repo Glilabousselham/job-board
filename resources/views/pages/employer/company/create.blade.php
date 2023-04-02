@@ -15,8 +15,7 @@
                 <div class="grid md:grid-cols-4">
                     <label for="name">Name</label>
                     <div class="md:col-span-3">
-                        <input type="text" id="name" name="name" value="{{old("name")}}"
-
+                        <input type="text" id="name" name="name" value="{{ old('name') }}"
                             class="w-full border text-sm outline-none px-2 py-1 rounded  border-gray-400">
                         @error('name')
                             <p class="text-red-500 text-sm">{{ $message }}</p>
@@ -27,7 +26,7 @@
                 <div class="grid md:grid-cols-4">
                     <label for="website_url">Website</label>
                     <div class="md:col-span-3">
-                        <input type="text" id="website_url" name="website_url" value="{{old("website_url")}}"
+                        <input type="text" id="website_url" name="website_url" value="{{ old('website_url') }}"
                             class="w-full border text-sm outline-none px-2 py-1 rounded  border-gray-400">
                         @error('website_url')
                             <p class="text-red-500 text-sm">{{ $message }}</p>
@@ -49,18 +48,19 @@
                 <div class="grid md:grid-cols-4">
                     <label for="description">Description</label>
                     <div class="md:col-span-3">
-                        <textarea type="text" id="description" name="description"  rows="6"
-                            class="w-full border text-sm outline-none px-2 py-1 rounded  border-gray-400">{{old("description")}}</textarea>
+                        <textarea type="text" id="description" name="description" rows="6"
+                            class="w-full border text-sm outline-none px-2 py-1 rounded  border-gray-400">{{ old('description') }}</textarea>
                         @error('description')
                             <p class="text-red-500 text-sm">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
 
-                <div class="flex justify-end   gap-1">
-                    <a href="{{ route('companies.index') }}"
-                        class="bg-red-400 hover:bg-red-500 text-white py-1 px-3 rounded-sm">Cancel</a>
-                    <button class="bg-purple-500 hover:bg-purple-600 text-white py-1 px-3 rounded-sm">Create</button>
+                <div class="flex justify-end gap-1">
+                    <a href="{{ route('companies.index') }}">
+                        <x-button.cancel value='Cancel' type="button" />
+                    </a>
+                    <x-button.primary value='Create' />
                 </div>
             </div>
         </form>

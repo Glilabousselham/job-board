@@ -25,7 +25,7 @@
                     @yield('page-title')
                 </div>
             </div>
-            <div class="bg-gray-100 rounded p-2 h-full shadow-sm">
+            <div class="bg-gray-100 rounded p-2 h-full shadow-sm overflow-y-auto">
                 <x-alert />
                 @yield('page-content')
             </div>

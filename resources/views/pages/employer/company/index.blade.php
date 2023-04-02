@@ -7,7 +7,7 @@
 @section('page-content')
     <div>
 
-        
+
 
         <div class="flex text-sm  text-gray-600 font-mono font-semibold pb-2">
             <a class="bg-white rounded-full px-3 py-1 shadow-sm hover:shadow" href="{{ route('companies.create') }}">New
@@ -50,7 +50,8 @@
                                 {{ $com->id }}
                             </th>
                             <td class="px-6 py-4">
-                                <img src="{{ $com->logo_url }}" class="w-[40px] h-[40px] rounded-md" alt="">
+                                <img src="{{ $com->logo_url }}" class="w-[40px] h-[40px] object-cover rounded-md"
+                                    alt="">
                             </td>
                             <td class="px-6 py-4">
                                 {{ $com->name }}
@@ -64,16 +65,22 @@
                                 <a href="{{ $com->website_url }}"
                                     class="text-purple-500 hover:underline  ">{{ $com->website_url }}</a>
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 ">
                                 {{ $com->created_at->diffForHumans() }}
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex gap-1">
-                                    <a class="py-1 px-2 bg-green-400 hover:bg-green-500 text-white rounded-sm font-semibold shadow " href="{{route('companies.edit',$com->id)}}">edit</a>
-                                    <form action="{{route('companies.destroy',$com->id)}}" method="post">
+                                    <a href="{{ route('companies.edit', $com->id) }}">
+                                        <x-button.edit bg='green' text="white" value="edit" />
+                                    </a>
+                                    <a href="{{ route('companies.show', $com->id) }}">
+                                        <x-button.show bg='blue' text="white" value="show" />
+                                    </a>
+                                    <form onsubmit="return confirm('confirm deleting this record')"
+                                        action="{{ route('companies.destroy', $com->id) }}" method="post">
                                         @csrf
                                         @method('delete')
-                                        <button class="py-1 px-2 bg-red-400 hover:bg-red-500 text-white rounded-sm font-semibold shadow ">remove</button>
+                                        <x-button.delete bg='red' text="white" value="remove" />
                                     </form>
                                 </div>
                             </td>
