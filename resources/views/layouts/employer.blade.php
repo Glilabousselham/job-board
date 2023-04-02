@@ -13,13 +13,13 @@
 <body>
     <div class="
         grid 
-        md:grid-cols-4
+        md:grid-cols-5
         h-screen 
     ">
         <div>
             <x-sidebar />
         </div>
-        <div class="md:col-span-3 h-screen flex flex-col">
+        <div class="md:col-span-4 h-screen flex flex-col">
             <div class="flex justify-between p-2">
                 <div class="text-md font-semibold text-gray-700">
                     @yield('page-title')

@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -45,6 +46,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function companiesJobs()
+    {
+        return $this->hasManyThrough(Job::class, Company::class);
+    }
+
+    public function companiesApplications()
+    {
+        return Application::join('jobs', 'applications.job_id', '=', 'jobs.id')
+            ->join('companies', 'companies.id', '=', 'jobs.company_id')
+            ->join('users', 'users.id', '=', 'companies.user_id')
+            ->select('applications.*')
+            ->where('users.id', '=', $this->id);
+    }
+
 
     public function companies()
     {

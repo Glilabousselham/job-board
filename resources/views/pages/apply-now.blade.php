@@ -21,8 +21,8 @@
                     <p class="text-red-400 ">{{ $message }}</p>
                 @enderror
 
-                <label class=" font-semibold" for="cover_letter">cover letter</label>
-                <textarea name="cover_letter" class="bg-gray-100 p-1 outline-none rounded-md" id="cover_letter" rows="7"></textarea>
+                <label class=" font-semibold" for="cover_letter">Cover Letter</label>
+                <textarea name="cover_letter" class="bg-gray-100 p-1 outline-none rounded-md"  id="cover_letter" rows="7">{{old('cover_letter')}}</textarea>
                 @error('cover_letter')
                     <p class="text-red-400 ">{{ $message }}</p>
                 @enderror

@@ -3,64 +3,98 @@
 namespace App\Http\Controllers\Employer;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Company;
 use App\Models\Job;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class JobController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function index(Request $request)
     {
-        //
+
+        return view('pages.employer.job.index', [
+            'jobs' => $request->user()->companiesJobs()->latest()->get()
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        //
+        return view('pages.employer.job.create', [
+            'companies' => request()->user()->companies()->latest()->get(),
+            'categories' => Category::select(['name', 'id'])->all(),
+        ]);
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|string|min:3|max:40',
+            'location' => 'required|string|min:3|max:255',
+            'salary' => 'required|numeric|min:10|max:1000000',
+            'categories' => 'required|array',
+            'categories.*' => 'exists:categories,id',
+            'company_id' => 'required|exists:companies,id',
+            'description' => 'required|string|min:3|max:500',
+        ]);
+
+
+        DB::beginTransaction();
+        $job = Job::create($data);
+        $job->categories()->sync($data['categories']);
+        DB::commit();
+        unset($data['categories']);
+        return redirect()->route('jobs.index')->with('success', "job created successfully!");
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(Job $job)
     {
-        //
+        return view('pages.employer.job.show', compact('job'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(Job $job)
     {
-        //
+        $companies = request()->user()->companies()->latest()->get();
+        $categories = Category::select(['name', 'id'])->get();
+        return view('pages.employer.job.edit', compact('job', 'companies', 'categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, Job $job)
     {
-        //
+
+        $data = $request->validate([
+            'title' => 'required|string|min:3|max:40',
+            'location' => 'required|string|min:3|max:255',
+            'salary' => 'required|numeric|min:10|max:1000000',
+            'categories' => 'required|array',
+            'categories.*' => 'exists:categories,id',
+            'company_id' => 'required|exists:companies,id',
+            'description' => 'required|string|min:3|max:500',
+        ]);
+
+
+
+        DB::beginTransaction();
+        $job->categories()->sync($data['categories']);
+        unset($data['categories']);
+        $job->update($data);
+        DB::commit();
+        return redirect()->route('jobs.index')->with('success', "job updated successfully!");
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Job $job)
     {
-        //
+        $job->delete();
+        return redirect()->route('jobs.index')->with('success', "job deleted successfully!");
     }
 }

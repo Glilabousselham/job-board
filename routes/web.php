@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Employer\CompanyController;
 use App\Http\Controllers\Employer\JobController;
@@ -22,11 +21,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [IndexController::class, 'home']);
 Route::get('/jobs', [IndexController::class, 'jobs']);
 Route::get('/jobs/{job}', [IndexController::class, 'viewJob']);
-Route::get('/jobs/{job}/applynow', [IndexController::class, 'applynow']);
+Route::get('/jobs/{job}/applynow', [IndexController::class, 'applynowView']);
 
-Route::post('/jobs/{job}/applynow', [ApplicationController::class, 'applynow']);
-Route::get('/alerts/applysuccess', [ApplicationController::class, 'applySuccessAlert']);
-Route::get("/myapplications", [ApplicationController::class, 'myapplications']);
+Route::post('/jobs/{job}/applynow', [IndexController::class, 'applynow']);
+Route::get('/alerts/applysuccess', [IndexController::class, 'applySuccessAlert']);
+Route::get("/myapplications", [IndexController::class, 'myapplications']);
 
 // authentication
 Route::view('login', 'pages.login');

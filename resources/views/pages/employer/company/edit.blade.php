@@ -1,7 +1,7 @@
 @extends('layouts.employer')
 
 @section('page-title')
-    New Company
+    Edit Company
 @endsection
 
 @section('page-content')
@@ -10,7 +10,7 @@
             class=" max-w-[500px] w-full bg-white rounded p-5 mx-auto">
             @csrf
             @method('put')
-            <h1 class="text-center text-xl text-purple-600 font-bold font-mono ">Update Company</h1>
+            <h1 class="text-center text-xl text-purple-600 font-bold font-mono ">Edit Company</h1>
 
             <div class="flex flex-col gap-2 mt-5">
                 <div class="grid md:grid-cols-4">
