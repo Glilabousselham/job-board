@@ -55,7 +55,7 @@ bg-white
                     <a class="  hover:text-purple-400 
                         {{ !request()->is('employer*') ? '' : 'border-b-2 border-purple-500 font-semibold text-purple-500' }}
                     "
-                        href="/employer">employer</a>
+                        href="/employer/dashboard">employer</a>
                 </li>
                 <li class="py-2 md:p-0">
                     <div class="more">
@@ -70,6 +70,7 @@ bg-white
                 </li>
                 <li class="py-2 md:p-0">
                     <form action="/logout" method="post">
+                        @csrf
                         <button class="px-2 py-1  rounded-md text-white hover:bg-purple-400 bg-purple-500">
                             Log out
                         </button>
