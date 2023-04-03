@@ -25,7 +25,7 @@ class JobController extends Controller
     {
         return view('pages.employer.job.create', [
             'companies' => request()->user()->companies()->latest()->get(),
-            'categories' => Category::select(['name', 'id'])->all(),
+            'categories' => Category::select(['name', 'id'])->get(),
         ]);
 
     }

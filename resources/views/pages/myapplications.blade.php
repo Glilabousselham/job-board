@@ -1,9 +1,11 @@
 @extends('layouts.index')
 
 @section('content')
+    <div class="p-2 bg-white overflow-x-auto flex items-center flex-col">
+        <div class="text-md font-semibold text-gray-700">My Applications</div>
+        <p class="text-sm">here is all your jobs applications that you did</p>
+    </div>
     <div class="p-2 bg-white overflow-x-auto">
-
-
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -49,16 +51,15 @@
 
                             </td>
                             <td class="px-6 py-4">
-                               
-                                   {{ $app->created_at->format('Y-m-d') }}
-                               
+
+                                {{ $app->created_at->format('Y-m-d') }}
+
 
                             </td>
                             <td class="px-6 py-4">
-                                <a href="{{ $app->resume_url }}" class="bg-purple-200 hover:bg-purple-300 px-2 rounded text-gray-700"
-                                    {{-- download="job-board-resume" --}}
-                                    target="_blank"
-                                    >show</a>
+                                <a href="{{ $app->resume_url }}"
+                                    class="bg-purple-200 hover:bg-purple-300 px-2 rounded text-gray-700"
+                                    {{-- download="job-board-resume" --}} target="_blank">show</a>
 
                             </td>
                         </tr>

@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('mauth')->only(['applynow','applynowView','applysuccess','applySuccessAlert','myapplications']);
+    }
     public function home()
     {
 

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId("job_id")->constrained('jobs');
             $table->text("resume_url");
             $table->string("cover_letter");
-            $table->enum('status',['applied', 'reviewed', 'rejected', 'shortlisted', 'hired'])->default('applied');
+            $table->enum('status',['applied', 'reviewed', 'rejected', 'shortlisted'/** */, 'hired'])->default('applied');
             $table->softDeletesDatetime();
             $table->timestamps();
         });

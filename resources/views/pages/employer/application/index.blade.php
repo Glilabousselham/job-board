@@ -6,14 +6,33 @@
 
 @section('page-content')
     <div>
+        @php
+            $tabs = [
+                [
+                    'name' => 'applied',
+                    'status' => '',
+                ],
+                [
+                    'name' => 'rejected',
+                    'status' => 'rejected',
+                ],
+                [
+                    'name' => 'hired',
+                    'status' => 'hired',
+                ],
+            ];
+        @endphp
 
-
-
-        {{-- <div class="flex text-sm  text-gray-600 font-mono font-semibold pb-2">
-            <a class="bg-white rounded-full px-3 py-1 shadow-sm hover:shadow" href="{{ route('companies.create') }}">New
-                Company</a>
-        </div> --}}
         <div class="p-2 bg-white overflow-x-auto">
+            <div class="flex gap-1 px-2 mb-3">
+                @foreach ($tabs as $tab)
+                    <a href="{{ $tab['status'] ? route('applications.index', ['status' => $tab['status']]) : route('applications.index') }}"
+                        class="text-sm font-semibold text-gray-700  px-2 py-1 
+                    {{ $tab['status'] == request()->status ? 'bg-purple-400 rounded-full text-white' : 'hover:underline cursor-pointer hover:text-purple-600' }}
+                    ">{{ $tab['name'] }}</a>
+                @endforeach
+            </div>
+
 
             {{-- <div class="relative overflow-x-auto shadow-md sm:rounded-lg"> --}}
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">

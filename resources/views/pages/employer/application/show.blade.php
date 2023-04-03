@@ -8,10 +8,19 @@
     <div class="">
 
         <div class="bg-white px-2 py-1 rounded- flex justify-end gap-1 w-full">
-            <p class="text-red-500 w-full text-4xl ">makhadimnx ashbi 9adhom d4ya </p>
-            <x-button.primary value="hire" />
-            <x-button.primary value="reject" />
-            <x-button.primary value="accept" />
+
+            <form action="{{ route('applications.update', $application->id) }}" method="post">
+                @csrf
+                @method('put')
+                <input type="hidden" name="status" value="hired">
+                <x-button.primary value="hire" />
+            </form>
+            <form action="{{ route('applications.update', $application->id) }}" method="post">
+                @csrf
+                @method('put')
+                <input type="hidden" name="status" value="rejected">
+                <x-button.primary value="reject" />
+            </form>
         </div>
         <div class="">
             <div class="text-lg text-center py-2 font-semibold text-gray-600 uppercase">Application Details</div>
@@ -21,7 +30,6 @@
                 <div class="text-md font-semibold text-gray-600 w-full py-1 bg-gray-100 text-center">User Info</div>
 
                 <div class="text-sm">
-
                     <img src="{{ $application->user->profile_picture_url }}"
                         class="w-[100px] h-[100px] mx-auto my-2 rounded-full" alt="">
                 </div>

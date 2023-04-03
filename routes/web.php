@@ -44,4 +44,5 @@ Route::group(['prefix' => '/employer', 'middleware' => 'mauth'], function () {
         '/jobs' => JobController::class,
         '/applications' => \App\Http\Controllers\Employer\ApplicationController::class,
     ]);
+
 });

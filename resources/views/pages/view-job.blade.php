@@ -45,10 +45,10 @@
     <div class="bg-white p-3">
         <h3 class="text-md mb-3">Others</h3>
         <ul class="flex flex-col gap-1 w-fit">
-            <li class="hover:bg-gray-100 px-2 py-1 text-lg text-gray-600 font-semibold ">
+            <li class="hover:bg-gray-100 px-2 py-1 text-sm hover:underline hover:text-purple-500 text-gray-600 font-semibold ">
                 <a href="/jobs">find job</a>
             </li>
-            <li class="hover:bg-gray-100 px-2 py-1 text-lg text-gray-600 font-semibold ">
+            <li class="hover:bg-gray-100 px-2 py-1 text-sm hover:underline hover:text-purple-500 text-gray-600 font-semibold ">
                 <a href="/employer">go to employer space</a>
             </li>
         </ul>

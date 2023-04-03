@@ -1,7 +1,7 @@
 @extends('layouts.employer')
 
 @section('page-title')
-    New Company
+    Companies
 @endsection
 
 @section('page-content')
@@ -15,7 +15,8 @@
         </div>
         <div class="text-sm">
             <div class=" font-semibold text-gray-700">Website:</div>
-            <a  href="{{ route('companies.show', $company->website_url) }}" class=" ml-2 underline cursor-pointer hover:text-purple-400 text-purple-600">{{ $company->website_url }}</a>
+            <a href="{{ route('companies.show', $company->website_url) }}"
+                class=" ml-2 underline cursor-pointer hover:text-purple-400 text-purple-600">{{ $company->website_url }}</a>
         </div>
         <div class="text-sm">
             <div class=" font-semibold text-gray-700">Created at:</div>

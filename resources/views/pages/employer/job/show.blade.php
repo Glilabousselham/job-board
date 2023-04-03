@@ -1,7 +1,7 @@
 @extends('layouts.employer')
 
 @section('page-title')
-    Job Information
+    Jobs
 @endsection
 
 @section('page-content')
