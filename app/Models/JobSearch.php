@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class JobSearch extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['search_query'];
 }

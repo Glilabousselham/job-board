@@ -1,5 +1,6 @@
 <style>
-    .more:hover>ul, .more>ul:hover {
+    .more:hover>ul,
+    .more>ul:hover {
         display: flex;
     }
 </style>
@@ -53,18 +54,26 @@ bg-white
             @if (auth()->check())
                 <li class="py-2 md:p-0">
                     <a class="  hover:text-purple-400 
+                    {{ !request()->is('profile*') ? '' : 'border-b-2 border-purple-500 font-semibold text-purple-500' }}
+                "
+                        href="/profile">Profile</a>
+                </li>
+                @if (request()->user() && request()->user()->is_employer)
+                    <li class="py-2 md:p-0">
+                        <a class="  hover:text-purple-400 
                         {{ !request()->is('employer*') ? '' : 'border-b-2 border-purple-500 font-semibold text-purple-500' }}
                     "
-                        href="/employer/dashboard">employer</a>
-                </li>
+                            href="/employer/dashboard">Employer</a>
+                    </li>
+                @endif
                 <li class="py-2 md:p-0">
                     <div class="more">
-                        <span>more</span>
+                        <span>More</span>
                         <ul class="w-fit p-1 flex-col bg-white shadow absolute hidden z-10">
                             <li class="flex">
                                 <a class="p-2 py-1 hover:bg-purple-100" href="/myapplications">My applications</a>
                             </li>
-                           
+
                         </ul>
                     </div>
                 </li>

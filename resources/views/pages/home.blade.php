@@ -4,12 +4,13 @@
         class="
     w-full 
     {{-- min-h-[400px] --}}
-    py-[200px]
+    min-h-[400px]
     px-2
     bg-white
     flex 
     flex-col 
     items-center 
+    justify-center 
     gap-[50px]
     antialiased
     bg-gradient-to-r
@@ -23,10 +24,9 @@
             </div>
         </div>
         {{-- search start --}}
-        <form action="jobs" method="get">
+        <form action="jobs" method="get" autocomplete="off">
             <div class="mx-auto flex-col md:flex-row bg-purple-500 gap-[1px] flex rounded-md overflow-hidden">
-                <input value="{{ request()->search_query ?? '' }}" name="search_query" class="outline-none px-2 max-w-[200px]"
-                    type="text" placeholder="Enter keyword...">
+                <x-input-search />
                 <select class="outline-none px-2  max-w-[200px]" name="category">
                     <option value="">Select Category</option>
                     @foreach ($categories as $category)

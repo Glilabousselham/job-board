@@ -5,6 +5,7 @@ use App\Http\Controllers\Employer\CompanyController;
 use App\Http\Controllers\Employer\JobController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,7 +37,7 @@ Route::post('logout', [AuthController::class, 'logout']);
 
 // employer
 
-Route::group(['prefix' => '/employer', 'middleware' => 'mauth'], function () {
+Route::group(['prefix' => '/employer', 'middleware' => ['mauth', 'employer']], function () {
     Route::get('/dashboard', [EmployerController::class, 'dashboard']);
 
     Route::resources([
@@ -45,4 +46,14 @@ Route::group(['prefix' => '/employer', 'middleware' => 'mauth'], function () {
         '/applications' => \App\Http\Controllers\Employer\ApplicationController::class,
     ]);
 
+});
+
+
+// profile 
+Route::group(['prefix' => '/profile', 'middleware' => 'mauth'], function () {
+    Route::get('', [ProfileController::class, 'index']);
+    Route::get('edit', [ProfileController::class, 'edit']);
+    Route::put('update', [ProfileController::class, 'update']);
+    Route::put('changepassword', [ProfileController::class, 'changepassword']);
+    Route::put('converttoemployer', [ProfileController::class, 'converttoemployer']);
 });

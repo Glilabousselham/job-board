@@ -16,7 +16,7 @@
         <div class="w-full max-w-[1600px] xl:px-1 mx-auto flex flex-col gap-1">
             <x-nav />
             @yield('content')
-            <footer>
+            <footer class="w-full">
                 <div class="bg-purple-900 py-4 px-3">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                         <div>

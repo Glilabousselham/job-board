@@ -10,9 +10,24 @@ use Illuminate\Support\Facades\DB;
 class IndexController extends Controller
 {
 
+    /**
+     * @var  \Illuminate\Database\Eloquent\Collection $jobs;
+     */
+    private function markJobView($jobs)
+    {
+        $user = request()->user();
+        if (!$user)
+            return;
+        foreach ($jobs as $job) {
+            $user->jobViews()->firstOrCreate(['job_id' => $job->id]);
+        }
+    }
+
+
     public function __construct()
     {
-        $this->middleware('mauth')->only(['applynow','applynowView','applysuccess','applySuccessAlert','myapplications']);
+        $this->middleware('mauth')->only(['applynow', 'applynowView', 'applysuccess', 'applySuccessAlert', 'myapplications']);
+        $this->middleware('employer:0')->only(['applynowView', 'applynow', 'myapplications']);
     }
     public function home()
     {
@@ -20,6 +35,9 @@ class IndexController extends Controller
         $categories = Category::all();
         $latestJobs = Job::orderBy('created_at', 'desc')->limit(10)->get();
         $locations = Job::select('location')->groupBy('location')->get();
+
+        $this->markJobView($latestJobs);
+
         return view('pages.home', compact('latestJobs', 'categories', 'locations'));
     }
 
@@ -41,10 +59,21 @@ class IndexController extends Controller
                 ->select("jobs.*");
         }
         if ($request->filled("search_query")) {
-            $search_query = strtoupper($request->get("search_query"));
+
+            $search_query = $request->get("search_query");
+            if ($request->user()) {
+
+                $request->user()->jobSearches()->updateOrCreate([
+                    'search_query' => $search_query
+                ]);
+            }
+
+            $search_query = strtoupper($search_query);
             $jobsQuery->where(DB::raw(("UPPER(jobs.title)")), 'like', "%$search_query%");
         }
         $jobs = $jobsQuery->limit(10)->get();
+
+        $this->markJobView($jobs);
 
         return view('pages.jobs', compact('jobs', 'categories', 'locations', 'companies'));
     }

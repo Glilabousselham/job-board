@@ -9,13 +9,16 @@
                     <div class="text-lg font-semibold">{{ $job->title }}</div>
                     <div class="text-sm mb-7 text-gray-500">{{ $job->created_at->diffForHumans() }}</div>
                 </div>
-                <div>
-                    <a href="/jobs/{{ $job->id }}/applynow">
-                        <button class="bg-purple-500 text-white px-3 py-1 rounded-full shadow-sm hover:bg-purple-600">Apply
-                            Now
-                        </button>
-                    </a>
-                </div>
+                @if (auth()->user() && !auth()->user()->is_employer)
+                    <div>
+                        <a href="/jobs/{{ $job->id }}/applynow">
+                            <button
+                                class="bg-purple-500 text-white px-3 py-1 rounded-full shadow-sm hover:bg-purple-600">Apply
+                                Now
+                            </button>
+                        </a>
+                    </div>
+                @endif
             </div>
             <div class="mb-4 font-semibold ">job description</div>
             <p class="text-md">
@@ -45,10 +48,12 @@
     <div class="bg-white p-3">
         <h3 class="text-md mb-3">Others</h3>
         <ul class="flex flex-col gap-1 w-fit">
-            <li class="hover:bg-gray-100 px-2 py-1 text-sm hover:underline hover:text-purple-500 text-gray-600 font-semibold ">
+            <li
+                class="hover:bg-gray-100 px-2 py-1 text-sm hover:underline hover:text-purple-500 text-gray-600 font-semibold ">
                 <a href="/jobs">find job</a>
             </li>
-            <li class="hover:bg-gray-100 px-2 py-1 text-sm hover:underline hover:text-purple-500 text-gray-600 font-semibold ">
+            <li
+                class="hover:bg-gray-100 px-2 py-1 text-sm hover:underline hover:text-purple-500 text-gray-600 font-semibold ">
                 <a href="/employer">go to employer space</a>
             </li>
         </ul>
